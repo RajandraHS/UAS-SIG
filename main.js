@@ -8,7 +8,7 @@ import VectorSource from 'ol/source/Vector';
 import Icon from 'ol/style/Icon';
 import Style from 'ol/style/Style';
 
-const bgdCoord = [107.6186973186406, -6.89718146768146];
+const bgdCoord = [106.1112647680729, -6.041403779981565];
 
 const map = new Map({
   target: 'map',
@@ -25,8 +25,8 @@ const map = new Map({
 
 function addMinimarketMark(tblminimarket) {
   const minimarketFeatures = tblminimarket.map(minimarket => new Feature({
-    geometry: new Point(fromLonLat([minimarket.longitude, minimarket.latitude])), // Perbaiki kesalahan penulisan longitude
-    nama: minimarket.nama, // Gunakan nama sesuai dengan database
+    geometry: new Point(fromLonLat([minimarket.longitude, minimarket.latitude])),
+    nama: minimarket.nama,
   }));
 
   const vectorSource = new VectorSource({
@@ -63,7 +63,7 @@ map.on('click', function(evt) {
 
   if (feature) {
     const coordinates = feature.getGeometry().getCoordinates();
-    const name = feature.get('nama'); // Pastikan menggunakan 'nama'
+    const name = feature.get('nama');
     overlay.setPosition(coordinates);
     const element = overlay.getElement();
     element.innerHTML = `<div class="ol-popup">${name}</div>`;
@@ -83,5 +83,5 @@ fetch('http://localhost:3001/api/minimarket')
     addMinimarketMark(data);
   })
   .catch(error => {
-    console.error('Failed to fetch Minimarket data:', error); // Perbaiki pesan kesalahan
+    console.error('Failed to fetch Minimarket data:', error);
   });
